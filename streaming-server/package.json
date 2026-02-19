@@ -1,5 +1,5 @@
 {
-	"name": "rtc-unified-server",
+	"name": "gaze-server",
 	"version": "1.0.0",
 	"description": "Универсальный сервер 3в1: статика + WebSocket сигналинг + менеджмент-контроль",
 	"type": "module",
@@ -20,6 +20,8 @@
 	"author": "",
 	"license": "MIT",
 	"dependencies": {
+		"cors": "^2.8.6",
+		"express": "^5.2.1",
 		"ws": "^8.14.2"
 	},
 	"engines": {
