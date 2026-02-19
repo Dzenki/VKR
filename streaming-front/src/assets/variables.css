@@ -1,0 +1,33 @@
+:root{
+
+    
+    --font-size-eight: 0.571rem; /* 8px */
+    --font-size-ten: 0.7143rem; /* 10px */
+    --font-size-eleven: 0.7857rem; /* 11px */
+    --font-size-twelve: 0.8571rem; /* 12px */
+	--font-size-fourteen: 1rem; /* 14px */
+	--font-size-sixteen: 1.1429rem; /* 16px */
+	--font-size-eighteen: 1.2857rem; /* 18px */
+	--font-size-twenty: 1.4286rem; /* 20px */
+	--font-size-twenty-two: 1.5714rem; /* 22px */
+	--font-size-twenty-four: 1.7143rem; /* 24px */
+	--font-size-twenty-five: 1.7857rem; /* 25px */
+	--font-size-thirty-four: 2.4286rem; /* 34px */
+    /* Жирность шрифта */
+	--font-weight-regular: 400;
+	--font-weight-medium: 500;
+	--font-weight-semi-bold: 600;
+	--font-weight-bold: 700;
+	--font-weight-extra-bold: 800;
+    /* Толщина линии шрифта */
+    --line-height-tiny: 12px;
+	--line-height-small: 14px;
+	--line-height-medium: 16px;
+	--line-height-large: 20px;
+    --line-height-not-huge: 22px;
+	--line-height-huge: 23px;
+	--line-height-giant: 28px;
+	--line-height-massive: 30px;
+    --line-height-absolute: 100%;
+    --line-height-immense: 36px;
+}
