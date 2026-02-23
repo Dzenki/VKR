@@ -7,9 +7,13 @@
     "node": "^20.19.0 || >=22.12.0"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "NODE_ENV=local vite build --mode development --watch",
+    "devWin": "set NODE_ENV=local&& vite build --mode development --watch",
+    "devBuild": "NODE_ENV=development vite build --mode development --emptyOutDir",
+    "devWinBuild": "set NODE_ENV=development&&vite build --mode development --emptyOutDir",
+    "buildAll": "NODE_ENV=development vite build --mode development --emptyOutDir && vite build --emptyOutDir",
+    "buildWinAll": "set NODE_ENV=development&&vite build --mode development --emptyOutDir && set NODE_ENV=production&&vite build --mode production --emptyOutDir",
+    "build": "vite build --emptyOutDir"
   },
   "dependencies": {
     "pinia": "^3.0.4",

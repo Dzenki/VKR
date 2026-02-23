@@ -1,0 +1,192 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+	margin: 0;
+}
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+ul[role="list"],
+ol[role="list"] {
+	list-style: none;
+}
+/* Set core root defaults */
+html:focus-within {
+	scroll-behavior: smooth;
+}
+/* Set core body defaults */
+body {
+	text-rendering: optimizeSpeed;
+}
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+	text-decoration-skip-ink: auto;
+}
+a {
+	text-decoration: none;
+}
+/* Make images easier to work with */
+img,
+picture {
+	max-width: 100%;
+	display: block;
+}
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+button {
+	padding: 0;
+	background: transparent;
+	border: none;
+
+	cursor: pointer;
+	user-select: none;
+}
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+	html:focus-within {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms;
+		animation-iteration-count: 1;
+		transition-duration: 0.01ms;
+		scroll-behavior: auto;
+	}
+}
+address {
+	font-style: normal;
+}
+:root{
+
+    
+    --font-size-eight: 0.571rem; /* 8px */
+    --font-size-ten: 0.7143rem; /* 10px */
+    --font-size-eleven: 0.7857rem; /* 11px */
+    --font-size-twelve: 0.8571rem; /* 12px */
+	--font-size-fourteen: 1rem; /* 14px */
+	--font-size-sixteen: 1.1429rem; /* 16px */
+	--font-size-eighteen: 1.2857rem; /* 18px */
+	--font-size-twenty: 1.4286rem; /* 20px */
+	--font-size-twenty-two: 1.5714rem; /* 22px */
+	--font-size-twenty-four: 1.7143rem; /* 24px */
+	--font-size-twenty-five: 1.7857rem; /* 25px */
+	--font-size-thirty-four: 2.4286rem; /* 34px */
+    /* Жирность шрифта */
+	--font-weight-regular: 400;
+	--font-weight-medium: 500;
+	--font-weight-semi-bold: 600;
+	--font-weight-bold: 700;
+	--font-weight-extra-bold: 800;
+    /* Толщина линии шрифта */
+    --line-height-tiny: 12px;
+	--line-height-small: 14px;
+	--line-height-medium: 16px;
+	--line-height-large: 20px;
+    --line-height-not-huge: 22px;
+	--line-height-huge: 23px;
+	--line-height-giant: 28px;
+	--line-height-massive: 30px;
+    --line-height-absolute: 100%;
+    --line-height-immense: 36px;
+}
+@font-face {
+    font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+    font-display: swap;
+	src: local('Inter'),
+		url('/fonts/Interregular.woff2') format('woff2'),
+		url('/fonts/Interregular.woff') format('woff'),
+		url('/fonts/Interregular.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: local('Inter'),
+		url('/fonts/Intermedium.woff2') format('woff2'),
+		url('/fonts/Intermedium.woff') format('woff'),
+		url('/fonts/Intermedium.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: local('Inter'),
+		url('/fonts/Intersemibold.woff2') format('woff2'),
+		url('/fonts/Intersemibold.woff') format('woff'),
+		url('/fonts/Intersemibold.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: local('Inter'),
+		url('/fonts/Interbold.woff2') format('woff2'),
+		url('/fonts/Interbold.woff') format('woff'),
+		url('/fonts/Interbold.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 800;
+	font-display: swap;
+	src: local('Inter'),
+		url('/fonts/Interextrabold.woff2') format('woff2'),
+		url('/fonts/Interextrabold.woff') format('woff'),
+		url('/fonts/Interextrabold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Inter';
+	font-style: normal;
+	font-weight: 900;
+	font-display: swap;
+    src: local('Inter'),
+		url('/fonts/Interblack.woff2') format('woff2'),
+		url('/fonts/Interblack.woff') format('woff'),
+		url('/fonts/Interblack.ttf') format('truetype');
+}
+html{
+	font-size: 14px; font-family: var(--main-text-font);
+	font-style: normal;
+}
+body{
+    font-family: var(--main-text-font);
+	font-style: normal;
+	font-size: 14px;
+}
+.header-layout{
+    height: 56px;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
