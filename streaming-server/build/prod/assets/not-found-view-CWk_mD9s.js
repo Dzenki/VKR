@@ -1,1 +1,0 @@
-import{_ as e}from"./index-mr_8185b.js";const n={};function r(t,o){return null}const _=e(n,[["render",r],["__file","C:/Users/79636/Desktop/O-meu-pau/VKR/streaming-front/src/views/not-found-view.vue"]]);export{_ as default};

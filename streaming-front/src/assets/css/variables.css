@@ -3,13 +3,14 @@
 	--deep-space-blue: #12263A;
 	--alice-blue: #F7FEFF;
 	--emerald: #5DD39E;
+	--pale-state: #B2BDC4;
     /* Цвета не указанные в ui-kit */
 	
     /* Дополнительные цвета */ 
 	
     /* Цвета бэкграундов */
 	--main-bg-color-alice-blue: var(--alice-blue);
-	--bg-color-emerald: var(--emerald)
+	--bg-color-emerald: var(--emerald);
     /* Цвета теней */
 	
     /* Цвета кнопок */
@@ -17,7 +18,7 @@
 	--main-btn-color-emerald: var(--emerald);
     /* Цвета границ */
 	--main-border-color-deep-space-blue: var(--deep-space-blue);
-	
+	--main-border-color-pale-state: var(--pale-state);
     /* Цвета текста */
 	--main-text-color-deep-space-blue: var(--deep-space-blue);
     /* Шрифты */

@@ -1,0 +1,1 @@
+import{_ as e}from"./index-DCDwhaIp.js";const r={};function s(t,n){return null}const _=e(r,[["render",s],["__file","C:/Users/79636/Desktop/O-meu-pau/VKR/streaming-front/src/views/profile-view.vue"]]);export{_ as default};

@@ -1,6 +1,7 @@
 <script setup>
-import { computed, defineAsyncComponent } from 'vue';
+import { computed, defineAsyncComponent, ref } from 'vue';
 
+const searchRequest = ref('')
 
 const menuIcon = computed(() => {
     return defineAsyncComponent(() => import('@/assets/img/svg/menu-icon.vue'))
@@ -17,6 +18,7 @@ const profileIcon = computed(() => {
 const bellIcon = computed(() => {
     return defineAsyncComponent(() => import('@/assets/img/svg/bell-icon.vue'))
 })
+
 </script>
 
 <template>
@@ -27,7 +29,7 @@ const bellIcon = computed(() => {
         </div>
         <div class="header-center-wrap">
             <div class="header-search-wrap">
-
+                <input type="text" placeholder="Search" v-model="searchRequest" class="header-search-container" id="search" />
             </div>
         </div>
         <div class="header-right-wrap">
@@ -46,6 +48,7 @@ const bellIcon = computed(() => {
     flex-direction: row;
     justify-content: space-between;
     align-items: anchor-center;
+    gap: 56px;
 }
 
 .header-left-wrap{
@@ -60,8 +63,26 @@ const bellIcon = computed(() => {
     gap: 16px;
 }
 
+.header-center-wrap{
+    width: 100%;
+}
+
 .header-search-wrap{
-    border: solid 1px var(--main-border-color-deep-space-blue);
+    width: 100%;
+    height: 30px;
+    border: solid 1px var(--main-border-color-pale-state);
+    border-radius: 20px;
+    display: flex;
+    padding: 16px;
+    align-items: center;
+}
+
+.header-search-container{
+    width: 100%;
+
+    border: none;
+    outline: none;
+	transition: border 0.1s;
 }
 
 .header-layout-menu-icon{

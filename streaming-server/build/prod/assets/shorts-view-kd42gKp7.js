@@ -1,1 +1,0 @@
-import{_ as e}from"./index-mr_8185b.js";const s={};function r(t,n){return null}const _=e(s,[["render",r],["__file","C:/Users/79636/Desktop/O-meu-pau/VKR/streaming-front/src/views/shorts-view.vue"]]);export{_ as default};
