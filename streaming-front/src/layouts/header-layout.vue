@@ -1,5 +1,6 @@
 <script setup>
 import { computed, defineAsyncComponent, ref } from 'vue';
+import { RouterLink } from 'vue-router';
 
 const searchRequest = ref('')
 
@@ -19,22 +20,37 @@ const bellIcon = computed(() => {
     return defineAsyncComponent(() => import('@/assets/img/svg/bell-icon.vue'))
 })
 
+const searchIcon = computed(() => {
+    return defineAsyncComponent(() => import('@/assets/img/svg/search-icon.vue'))
+})
+
+async function searchFunction(){
+
+}
+
 </script>
 
 <template>
     <div class="header-layout">
         <div class="header-left-wrap">
             <menuIcon class="header-layout-menu-icon"/>
-            <gazeIcon class="header-layout-gaze-icon"/>
+            <router-link to="/">
+                <gazeIcon class="header-layout-gaze-icon"/>
+
+            </router-link>
         </div>
-        <div class="header-center-wrap">
+        <form  class="header-center-wrap" @submit.prevent="searchFunction">
             <div class="header-search-wrap">
                 <input type="text" placeholder="Search" v-model="searchRequest" class="header-search-container" id="search" />
+                <searchIcon class="header-search-icon" @click="console.log('search')"/>
             </div>
-        </div>
+            
+        </form>
         <div class="header-right-wrap">
-            <bellIcon class="header-layout-bell-icon" />
-            <profileIcon class="header-layout-profile-icon"/>
+            <button class="header-right-sign-in-btn" @click="">Войти</button>
+            <button class="header-right-sign-up-btn" @click="">Регистрация</button>
+            <bellIcon class="header-layout-bell-icon" @click="console.log('notification')"/>
+            <profileIcon class="header-layout-profile-icon" @click="console.log('profile')"/>
         </div>
     </div>
 </template>
@@ -49,6 +65,10 @@ const bellIcon = computed(() => {
     justify-content: space-between;
     align-items: anchor-center;
     gap: 56px;
+    background: var(--main-bg-color-alice-blue);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .header-left-wrap{
@@ -65,6 +85,7 @@ const bellIcon = computed(() => {
 
 .header-center-wrap{
     width: 100%;
+    max-width: 600px;
 }
 
 .header-search-wrap{
@@ -75,6 +96,10 @@ const bellIcon = computed(() => {
     display: flex;
     padding: 16px;
     align-items: center;
+}
+
+.header-search-icon{
+    fill: var(--main-border-color-pale-state);
 }
 
 .header-search-container{

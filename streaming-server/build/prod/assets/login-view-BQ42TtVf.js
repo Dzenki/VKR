@@ -1,0 +1,1 @@
+import{_ as e,c as n,o}from"./index-DUtmBvoU.js";const r={};function s(t,c){return o(),n("div",null,"auth")}const i=e(r,[["render",s],["__file","C:/Users/79636/Desktop/O-meu-pau/VKR/streaming-front/src/views/login-view.vue"]]);export{i as default};

@@ -1,0 +1,1 @@
+import{_ as e,c as s,o as r}from"./index-DUtmBvoU.js";const t={};function o(c,n){return r(),s("div",null,"shorts")}const a=e(t,[["render",o],["__file","C:/Users/79636/Desktop/O-meu-pau/VKR/streaming-front/src/views/shorts-view.vue"]]);export{a as default};

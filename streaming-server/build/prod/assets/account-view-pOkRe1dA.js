@@ -1,0 +1,1 @@
+import{_ as e,c,o as t}from"./index-DUtmBvoU.js";const n={};function o(r,s){return t(),c("div",null," account ")}const _=e(n,[["render",o],["__file","C:/Users/79636/Desktop/O-meu-pau/VKR/streaming-front/src/views/account-view.vue"]]);export{_ as default};

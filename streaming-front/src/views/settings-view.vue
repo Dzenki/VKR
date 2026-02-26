@@ -3,7 +3,9 @@
 </script>
 
 <template>
-    <div>shorts</div>
+    <div>
+        натройки
+    </div>
 </template>
 
 <style>
