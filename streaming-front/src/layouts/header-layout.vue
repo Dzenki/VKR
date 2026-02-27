@@ -1,8 +1,9 @@
 <script setup>
-import { computed, defineAsyncComponent, ref } from 'vue';
+import { computed, defineAsyncComponent, inject, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 
 const searchRequest = ref('')
+const signType = inject('signType')
 
 const menuIcon = computed(() => {
     return defineAsyncComponent(() => import('@/assets/img/svg/menu-icon.vue'))
@@ -28,6 +29,15 @@ async function searchFunction(){
 
 }
 
+function isSignIn(){
+    signType.value = 'Вход'
+}
+
+function isSignUp(){
+    signType.value = 'Регистрация'
+
+}
+
 </script>
 
 <template>
@@ -47,8 +57,12 @@ async function searchFunction(){
             
         </form>
         <div class="header-right-wrap">
-            <button class="header-right-sign-in-btn" @click="">Войти</button>
-            <button class="header-right-sign-up-btn" @click="">Регистрация</button>
+            <router-link to="/login">
+                <button class="header-right-sign-in-btn" @click="isSignIn">Войти</button>
+            </router-link>
+            <router-link to="/login">
+                <button class="header-right-sign-up-btn" @click="isSignUp">Регистрация</button>
+            </router-link>
             <bellIcon class="header-layout-bell-icon" @click="console.log('notification')"/>
             <profileIcon class="header-layout-profile-icon" @click="console.log('profile')"/>
         </div>

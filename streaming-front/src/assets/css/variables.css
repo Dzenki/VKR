@@ -21,6 +21,7 @@
 	--main-border-color-pale-state: var(--pale-state);
     /* Цвета текста */
 	--main-text-color-deep-space-blue: var(--deep-space-blue);
+	--text-color-pale-state: var(--pale-state);
     /* Шрифты */
     --main-text-font: "Inter";
     /* Размеры шрифта mobile base:14*/

@@ -37,6 +37,8 @@ app.use(createPinia())
 
 async function mountApp() {
     // app.config.globalProperties.getImage = image
+    app.provide('signType', ref(null))
+
     app.mount('#app')
 }
 mountApp()

@@ -1,1 +1,0 @@
-import{_ as e,c as n,o as c}from"./index-DUtmBvoU.js";const r={};function s(t,a){return c(),n("div",null,"channel")}const _=e(r,[["render",s],["__file","C:/Users/79636/Desktop/O-meu-pau/VKR/streaming-front/src/views/channel-view.vue"]]);export{_ as default};

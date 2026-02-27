@@ -1,1 +1,0 @@
-import{_ as e,c as o,o as r}from"./index-DUtmBvoU.js";const s={};function c(t,n){return r(),o("div",null," главная ")}const a=e(s,[["render",c],["__file","C:/Users/79636/Desktop/O-meu-pau/VKR/streaming-front/src/views/home-view.vue"]]);export{a as default};

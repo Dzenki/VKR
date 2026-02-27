@@ -1,0 +1,1 @@
+import{_ as e,c as o,o as r}from"./index-DG-AEEnE.js";const s={};function c(t,n){return r(),o("div",null,"video")}const _=e(s,[["render",c],["__file","C:/Users/79636/Desktop/O-meu-pau/VKR/streaming-front/src/views/video-view.vue"]]);export{_ as default};

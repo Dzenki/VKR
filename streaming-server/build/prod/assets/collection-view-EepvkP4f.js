@@ -1,0 +1,1 @@
+import{_ as e,c,o}from"./index-DG-AEEnE.js";const t={};function n(r,s){return o(),c("div",null," collection ")}const i=e(t,[["render",n],["__file","C:/Users/79636/Desktop/O-meu-pau/VKR/streaming-front/src/views/collection-view.vue"]]);export{i as default};
