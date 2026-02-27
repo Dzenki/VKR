@@ -1,14 +1,44 @@
-import './assets/main.css'
+//! ============================================================================
+//! MAIN APPLICATION ENTRY POINT
+//! ============================================================================
 
+//! ================ CSS ===========================
+import './assets/css/main.css'
+
+//! ================ VUE ===========================
+import { ref } from 'vue'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-
 import App from './App.vue'
-import router from './router'
 
+//! ================ COMPONENTS ====================
+
+//! ================ HELPERS =======================
+
+//! ================ ROUTER ========================
+import initRouter from './router'
+
+//! ================ INITIALIZATION ================
+
+// экземпляр приложения ----------------------------
 const app = createApp(App)
 
-app.use(createPinia())
+// экземпляр роутера -------------------------------
+const router = initRouter()
 app.use(router)
 
-app.mount('#app')
+//pinia --------------------------------------------
+app.use(createPinia())
+
+// requester плагин --------------------------------
+// плагин аутентификации ---------------------------
+// обработчик навигации ----------------------------
+// css для размера экрана --------------------------
+
+async function mountApp() {
+    // app.config.globalProperties.getImage = image
+    app.provide('signType', ref(null))
+
+    app.mount('#app')
+}
+mountApp()

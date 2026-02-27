@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    
+    <div>video</div>
 </template>
 
 <style>

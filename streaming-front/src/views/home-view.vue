@@ -3,7 +3,9 @@
 </script>
 
 <template>
-    
+    <div>
+        главная
+    </div>
 </template>
 
 <style>

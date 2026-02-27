@@ -1,0 +1,1 @@
+import{_ as e,c as r,o}from"./index-DG-AEEnE.js";const s={};function c(t,n){return o(),r("div",null,"profile")}const f=e(s,[["render",c],["__file","C:/Users/79636/Desktop/O-meu-pau/VKR/streaming-front/src/views/profile-view.vue"]]);export{f as default};

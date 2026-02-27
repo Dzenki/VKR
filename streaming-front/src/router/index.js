@@ -26,6 +26,15 @@ function initRouter() {
       },
     },
     {
+      name: "collection",
+      path: "/collection",
+      component: () => import("@/views/collection-view.vue"),
+      meta: {
+        name: "Подписки",
+        public: true,
+      },
+    },
+    {
       name: "video",
       path: "/video",
       component: () => import("@/views/video-view.vue"),
@@ -49,6 +58,15 @@ function initRouter() {
       component: () => import("@/views/channel-view.vue"),
       meta: {
         name: "Канал",
+        public: true,
+      },
+    },
+    {
+      name: "you",
+      path: "/you",
+      component: () => import("@/views/account-view.vue"),
+      meta: {
+        name: "Аккаунт",
         public: true,
       },
     },

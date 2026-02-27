@@ -1,0 +1,50 @@
+{
+    "name": "gaze",
+    "version": "1.0.0",
+    "description": "gaze",
+    "private": true,
+    "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "X-Client": "gaze_web",
+        "X-Source_id": 15,
+        "X-App_id": 4
+    },
+    "config": {
+        "port": 6200,
+        "mode": "local",
+        "host": "localhost",
+        "domain": false,
+        "https": true,
+        "http2": true,
+        "front_path": "build/dev",
+        "ssl": {
+            "key": "",
+            "cert": ""
+        }
+    },
+    "modules": [
+        {
+            "name": "fastify",
+            "local": true
+        },
+        {
+            "name": "template",
+            "local": true,
+            "config": {
+                "mode": "dev",
+                "file": "index.html",
+                "session": true,
+                "salt": {
+                    "urls": {
+                        "rest": "",
+                        "auth": ""
+                    },
+                    "params": {
+                        "time_zone": "Europe/Moscow",
+                        "time_offset": 300000
+                    }
+                }
+            }
+        }
+    ]
+}
