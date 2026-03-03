@@ -2,26 +2,6 @@
 import { inject, ref } from 'vue';
 import sign from './sign.vue';
 
-const signType = inject('signType')
-
-const signUpText = 'У вас нет учетной записи? Зарегистрируйтесь!'
-const signInText = 'Есть учетная запичь? Войти'
-const currentButton = ref('')
-
-// changeCurrentButton()
-
-// function changeCurrentButton(){
-//     if (signType.value === 'Вход'){
-//         currentButton.value = 'Войти'
-//         signType.value = 'Регитрация'
-//     }
-//     else if (signType.value === 'Регистрация'){
-//         currentButton.value = 'Зарегистрироваться'
-//         signType.value = 'Вход'
-//     }
-// }
-
-
 </script>
 
 <template>

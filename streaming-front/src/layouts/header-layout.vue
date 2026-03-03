@@ -2,6 +2,10 @@
 import { computed, defineAsyncComponent, inject, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 
+import { NModal } from 'naive-ui';
+import { NButton } from 'naive-ui';
+
+
 const searchRequest = ref('')
 const signType = inject('signType')
 
@@ -29,14 +33,8 @@ async function searchFunction(){
 
 }
 
-function isSignIn(){
-    signType.value = 'Вход'
-}
-
-function isSignUp(){
-    signType.value = 'Регистрация'
-
-}
+const showSignInModal = ref(false)
+const showSignUpModal = ref(false)
 
 </script>
 
@@ -57,12 +55,18 @@ function isSignUp(){
             
         </form>
         <div class="header-right-wrap">
-            <router-link to="/login">
-                <button class="header-right-sign-in-btn" @click="isSignIn">Войти</button>
-            </router-link>
-            <router-link to="/login">
-                <button class="header-right-sign-up-btn" @click="isSignUp">Регистрация</button>
-            </router-link>
+            <n-button class="header-right-sign-in-btn" @click="showSignInModal = true">Войти</n-button>
+            <n-modal v-model:show="showSignInModal" preset="dialog" title="Dialog">
+                <template #header>
+                    <div>title</div>
+                </template>
+                    <div>content</div>
+                <template #action>
+                    <div>action</div>
+                </template>
+            </n-modal>
+            <n-button class="header-right-sign-up-btn" @click="showSignUpModal = true">Регистрация</n-button>
+
             <bellIcon class="header-layout-bell-icon" @click="console.log('notification')"/>
             <profileIcon class="header-layout-profile-icon" @click="console.log('profile')"/>
         </div>

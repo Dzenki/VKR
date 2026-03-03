@@ -1,6 +1,7 @@
 <script setup>
 import sidebarForm from './sidebar/sidebar-form.vue';
 import headerLayout from './header-layout.vue';
+import naiveSidebar from './sidebar/naive-sidebar.vue';
 
 </script>
 
@@ -8,26 +9,15 @@ import headerLayout from './header-layout.vue';
     <div class="main-layout">
         <header-layout/>
         <div class="main-layout-warp">
-            <div class="side-bar-form">
-                <sidebar-form/>
-            </div>
-            <div class="main-layout-content">
-                <router-view/>
-            </div>
+            <naive-sidebar/>
         </div>
     </div>
 </template>
 
 <style>
 .main-layout{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-.main-layout-warp{
-    display: flex;
-    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
 }
 
 .side-bar-form{
