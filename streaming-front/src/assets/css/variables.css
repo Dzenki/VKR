@@ -4,10 +4,12 @@
 	--alice-blue: #F7FEFF;
 	--emerald: #5DD39E;
 	--pale-state: #B2BDC4;
+	--white: #fff;
     /* Цвета не указанные в ui-kit */
 	
     /* Дополнительные цвета */ 
-	
+	--light-grey: #F6F6F7;
+	--grey: #C1C1C9;
     /* Цвета бэкграундов */
 	--main-bg-color-alice-blue: var(--alice-blue);
 	--bg-color-emerald: var(--emerald);
@@ -16,12 +18,16 @@
     /* Цвета кнопок */
 	--main-btn-color-deep-space-blue: var(--deep-space-blue);
 	--main-btn-color-emerald: var(--emerald);
+	--btn-color-light-grey: var(--light-grey);
     /* Цвета границ */
 	--main-border-color-deep-space-blue: var(--deep-space-blue);
 	--main-border-color-pale-state: var(--pale-state);
+	--border-color-emerald: var(--emerald);;
     /* Цвета текста */
 	--main-text-color-deep-space-blue: var(--deep-space-blue);
 	--text-color-pale-state: var(--pale-state);
+	--text-color-grey: var(--grey);
+	--text-color-white: var(--white);
     /* Шрифты */
     --main-text-font: "Inter";
     /* Размеры шрифта mobile base:14*/

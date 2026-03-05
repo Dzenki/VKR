@@ -4,23 +4,15 @@ import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
 
 import { NSpace } from 'naive-ui';
-import { NSwitch } from 'naive-ui';
 import { NLayout } from 'naive-ui';
 import { NLayoutSider } from 'naive-ui';
 import { NMenu } from 'naive-ui';
 import { NIcon } from 'naive-ui';
 
 import homeIcon from '@/assets/img/svg/home-icon.vue';
-import homeFillIcon from '@/assets/img/svg/home-fill-icon.vue';
 import shortsIcon from '@/assets/img/svg/shorts-icon.vue';
-import shortsFillIcon from '@/assets/img/svg/shorts-fill-icon.vue';
 import collectionIcon from '@/assets/img/svg/collection-icon.vue';
-import collectionFillIcon from '@/assets/img/svg/collection-fill-icon.vue';
 import personIcon from '@/assets/img/svg/person-icon.vue';
-import personFillIcon from '@/assets/img/svg/person-fill-icon.vue';
-import initRouter from '@/router';
-
-const route = initRouter()
 
 const sidebarItems = [
     {
