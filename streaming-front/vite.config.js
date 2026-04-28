@@ -9,22 +9,22 @@ export default defineConfig({
 		'@': fileURLToPath(new URL('./src', import.meta.url))
 		}
 	},
-	server: {
-		port: 5173,
-		strictPort: true,
-		host: true,
-		cors: true,
-		hmr: {
-		protocol: 'ws',
-		host: 'localhost',
-		port: 5173
-		}
-	},
-	build: {
-		outDir: '../streaming-server/build/prod',
-		emptyOutDir: true,
-		sourcemap: false
-	}
+	// server: {
+	// 	port: 5173,
+	// 	strictPort: true,
+	// 	host: true,
+	// 	cors: true,
+	// 	hmr: {
+	// 	protocol: 'ws',
+	// 	host: 'localhost',
+	// 	port: 5173
+	// 	}
+	// },
+	// build: {
+	// 	outDir: '../streaming-server/build/prod',
+	// 	emptyOutDir: true,
+	// 	sourcemap: false
+	// }
 })
 
 // import { fileURLToPath, URL } from 'node:url'

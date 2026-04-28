@@ -10,6 +10,7 @@ import upHeader from '@/components/login/sign-up/header.vue';
 import inHeader from '@/components/login/sign-in/header.vue';
 import inForm from '@/components/login/sign-in/form.vue';
 import upForm from '@/components/login/sign-up/form.vue';
+import accountSidebar from './account-sidebar/account-sidebar.vue';
 
 const searchRequest = ref('')
 
@@ -49,7 +50,7 @@ function rediretFunction(){
 const showSignInModal = ref(false)
 const showSignUpModal = ref(false)
 
-
+const accountSidebarModal = ref(false)
 
 </script>
 
@@ -105,7 +106,8 @@ const showSignUpModal = ref(false)
             </n-modal>
 
             <bellIcon class="header-layout-bell-icon" @click="console.log('notification')"/>
-            <profileIcon class="header-layout-profile-icon" @click="console.log('profile')"/>
+            <profileIcon class="header-layout-profile-icon" @click="accountSidebarModal = true"/>
+            <accountSidebar v-model:="accountSidebarModal" @close="accountSidebarModal = false"/>
         </div>
     </div>
 </template>

@@ -5,7 +5,7 @@ import { NMessageProvider } from 'naive-ui';
 
 const themeOverrides = {
     common: {
-
+        textColorBase: 'var(--main-text-color-deep-space-blue)'
     },
     Button: {
         color: '#fff',
@@ -14,6 +14,15 @@ const themeOverrides = {
         fontSize: 'var(--font-size-fourteen)',
         lineHeight: 'var(--line-height-large)'
     },
+    Dialog: {
+        padding: '12px',
+    },
+    Icon: {
+        color: 'var(--main-text-color-deep-space-blue)'
+    },
+    Menu: {
+        itemIconColor: 'var(--main-text-color-deep-space-blue)',
+    }
 }
 </script>
 
