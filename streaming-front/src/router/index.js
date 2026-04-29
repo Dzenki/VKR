@@ -9,11 +9,22 @@ function initRouter() {
   //определение маршрутов
   const routes = [
     {
+      name: "home",
+      path: "/",
+      component: () => import("@/views/home-view.vue"),
+      meta: {
+        name: "Рекомендации",
+        public: true,
+        layout: 'main'
+      },
+    },
+    {
       name: "login",
       path: "/login",
       component: () => import("@/views/login-view.vue"),
       meta: {
         public: true,
+        layout: 'main'
       },
     },
     {
@@ -23,6 +34,7 @@ function initRouter() {
       meta: {
         name: "Шортсы",
         public: true,
+        layout: 'main'
       },
     },
     {
@@ -32,6 +44,7 @@ function initRouter() {
       meta: {
         name: "Подписки",
         public: true,
+        layout: 'main'
       },
     },
     {
@@ -41,15 +54,7 @@ function initRouter() {
       meta: {
         name: "Видео",
         public: true,
-      },
-    },
-    {
-      name: "home",
-      path: "/",
-      component: () => import("@/views/home-view.vue"),
-      meta: {
-        name: "Рекомендации",
-        public: true,
+        layout: 'main'
       },
     },
     {
@@ -59,6 +64,7 @@ function initRouter() {
       meta: {
         name: "Канал",
         public: true,
+        layout: 'main'
       },
     },
     {
@@ -68,6 +74,7 @@ function initRouter() {
       meta: {
         name: "Аккаунт",
         public: true,
+        layout: 'main'
       },
     },
     {
@@ -76,6 +83,43 @@ function initRouter() {
       component: () => import("@/views/profile-view.vue"),
       meta: {
         name: "Канал",
+        layout: 'main'
+      },
+    },
+    {
+      name: "createStream",
+      path: "/studio/livestreaming",
+      component: () => import("@/gaze-studio/create-stream/create-steram.vue"),
+      meta: {
+        name: "Прямая трансляция",
+        layout: 'studio'
+      },
+    },
+    {
+      name: "createPost",
+      path: "/studio/livestreaming",
+      component: () => import("@/gaze-studio/create-post/create-post.vue"),
+      meta: {
+        name: "Новый пост",
+        layout: 'studio'
+      },
+    },
+    {
+      name: "uploadVOD",
+      path: "/studio/livestreaming",
+      component: () => import("@/gaze-studio/upload-vod/upload-vod.vue"),
+      meta: {
+        name: "Загрузить VOD",
+        layout: 'studio'
+      },
+    },
+    {
+      name: "studioChannel",
+      path: "/studio/channel",
+      component: () => import("@/gaze-studio/studio-channel/studio-channel.vue"),
+      meta: {
+        name: "Панель канала",
+        layout: 'studio'
       },
     },
     {

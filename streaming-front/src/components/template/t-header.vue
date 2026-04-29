@@ -10,7 +10,7 @@ import upHeader from '@/components/login/sign-up/header.vue';
 import inHeader from '@/components/login/sign-in/header.vue';
 import inForm from '@/components/login/sign-in/form.vue';
 import upForm from '@/components/login/sign-up/form.vue';
-import accountSidebar from './account-sidebar/account-sidebar.vue';
+// import accountSidebar from './account-sidebar/account-sidebar.vue';
 import { h } from 'vue';
 
 import postIcon from '@/assets/img/svg/post-icon.vue';
@@ -107,10 +107,6 @@ async function searchFunction(){
 
 }
 
-function rediretFunction(){
-    showSignInModal.value = !showSignInModal.value 
-    showSignUpModal.value = !showSignUpModal.value 
-}
 </script>
 
 <template>
@@ -130,39 +126,6 @@ function rediretFunction(){
             
         </form>
         <div class="header-right-wrap">
-            <n-button class="header-right-sign-in-btn" @click="showSignInModal = true">Войти</n-button>
-            <n-modal v-model:show="showSignInModal" preset="dialog" title="Dialog">
-                <template #icon>
-                    <n-icon>
-                        <gazeIconMini/>
-                    </n-icon>
-                </template>
-                <template #header>
-                    <in-header/>
-                </template>
-                <in-form/>
-                <template #action>
-                    <n-button class="sign-redirect-btn"
-                        @click="rediretFunction">У вас нет учетной записи? Зарегистрируйтесь!</n-button>
-                </template>
-            </n-modal>
-
-            <n-button class="header-right-sign-up-btn" @click="showSignUpModal = true">Регистрация</n-button>
-            <n-modal v-model:show="showSignUpModal" preset="dialog" title="Dialog">
-                <template #icon>
-                    <n-icon>
-                        <gazeIconMini/>
-                    </n-icon>
-                </template>
-                <template #header>
-                    <up-header/>
-                </template>
-                <up-form/>
-                <template #action>
-                    <n-button class="sign-redirect-btn"
-                        @click="rediretFunction">Есть учетная запись? Войти</n-button>
-                </template>
-            </n-modal>
             <n-dropdown :options="createOptions" trigger="click">
                 <n-button strong secondary type="primary">
                     <n-icon>

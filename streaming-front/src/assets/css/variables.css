@@ -5,26 +5,41 @@
 	--emerald: #5DD39E;
 	--pale-state: #B2BDC4;
 	--white: #fff;
+	--red: #CA2E2E;
     /* Цвета не указанные в ui-kit */
-	
     /* Дополнительные цвета */ 
 	--light-grey: #F6F6F7;
 	--grey: #C1C1C9;
+	/*цвета, украденные с работы*/
+	--black-neutrals: #0D0D26;
+    --grey-light: #F6F6FB;
+    --grey-blue-not-light: #B7B7CC;
+    --grey-blue-light: #D0D0E2;
+    --grey-not-dark: #8D8D9D;
+    --grey-dark: #76768C;
+    --white-smoky: #EEEDF7;
+    --white-grey: #F5F5F5;
+    --black-no-opacity: rgb(31, 31, 51, 0.55);
+    --black-ten-opacity: #1F1F331A;
     /* Цвета бэкграундов */
 	--main-bg-color-alice-blue: var(--alice-blue);
 	--bg-color-emerald: var(--emerald);
+	--bg-color-red: var(--red);
     /* Цвета теней */
 	
     /* Цвета кнопок */
 	--main-btn-color-deep-space-blue: var(--deep-space-blue);
 	--main-btn-color-emerald: var(--emerald);
 	--btn-color-light-grey: var(--light-grey);
+	--btn-color-red: var(--red);
     /* Цвета границ */
 	--main-border-color-deep-space-blue: var(--deep-space-blue);
 	--main-border-color-pale-state: var(--pale-state);
-	--border-color-emerald: var(--emerald);;
+	--border-color-emerald: var(--emerald);
+	--border-color-red: var(--red);
     /* Цвета текста */
 	--main-text-color-deep-space-blue: var(--deep-space-blue);
+
 	--text-color-pale-state: var(--pale-state);
 	--text-color-grey: var(--grey);
 	--text-color-white: var(--white);

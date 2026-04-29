@@ -2,6 +2,8 @@
 import mainLayout from './layouts/main-layout.vue';
 import { NConfigProvider } from 'naive-ui';
 import { NMessageProvider } from 'naive-ui';
+import { watch } from 'vue';
+import { useRoute } from 'vue-router';
 
 const themeOverrides = {
     common: {
@@ -22,8 +24,26 @@ const themeOverrides = {
     },
     Menu: {
         itemIconColor: 'var(--main-text-color-deep-space-blue)',
+    },
+    Dropdown: {
+        optionTextColor: 'var(--main-text-color-deep-space-blue)',
+
     }
 }
+
+const route = useRoute()
+
+watch(
+    () => route.meta.name,
+    (newTitle) => {
+        if (newTitle) {
+        document.title = `${newTitle} | Gaze`
+        } else {
+        document.title = 'Gaze'
+        }
+    },
+    { immediate: true } // Сработает сразу при загрузке
+)
 </script>
 
 <template>

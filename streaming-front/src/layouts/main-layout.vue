@@ -2,11 +2,16 @@
 import sidebarForm from './sidebar/sidebar-form.vue';
 import headerLayout from './header-layout.vue';
 import naiveSidebar from './sidebar/naive-sidebar.vue';
+import { useRoute } from 'vue-router';
 
+const route = useRoute()
 </script>
 
 <template>
-    <div class="main-layout">
+    <div class="studio-layout" v-if="$route.meta.layout === 'studio'">
+        <router-view/>
+    </div>
+    <div class="main-layout" v-if="$route.meta.layout === 'main'">
         <header-layout/>
         <div class="main-layout-warp">
             <naive-sidebar/>
