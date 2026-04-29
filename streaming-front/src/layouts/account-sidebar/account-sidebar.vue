@@ -263,6 +263,11 @@ function close() {
 </template>
 
 <style>
+.account-sidebar-wrap{
+    position: absolute;
+    right: 12px;
+    top: 56px;
+}
 .n-card > .n-card-header{
     padding: 16px;
 }

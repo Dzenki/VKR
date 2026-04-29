@@ -38,6 +38,10 @@ const gazeIconMini = computed(() => {
     return defineAsyncComponent(() => import('@/assets/img/svg/gaze-icon.vue'))
 })
 
+const bigPlusIcon = computed(() => {
+    return defineAsyncComponent(() => import('@/assets/img/svg/big-plus-icon.vue'))
+})
+
 async function searchFunction(){
 
 }
@@ -51,6 +55,7 @@ const showSignInModal = ref(false)
 const showSignUpModal = ref(false)
 
 const accountSidebarModal = ref(false)
+
 
 </script>
 
@@ -104,7 +109,13 @@ const accountSidebarModal = ref(false)
                         @click="rediretFunction">Есть учетная запись? Войти</n-button>
                 </template>
             </n-modal>
+            <n-button strong secondary type="primary">
 
+                <n-icon>
+                    <bigPlusIcon/>
+                </n-icon>
+                &nbsp Создать
+            </n-button>
             <bellIcon class="header-layout-bell-icon" @click="console.log('notification')"/>
             <profileIcon class="header-layout-profile-icon" @click="accountSidebarModal = true"/>
             <accountSidebar v-model:="accountSidebarModal" @close="accountSidebarModal = false"/>
