@@ -54,10 +54,22 @@ const categoriesList = [
 </template>
 
 <style>
+
 .tag-slider-wrap{
     display: flex;
     flex-direction: row;
     gap: 8px;
     padding: 16px;
+}
+
+.tag-slider-category-container{
+    padding: 2px 5px;
+    background-color: var(--black-ten-opacity);
+    border-radius: 5px;
+}
+
+.tag-slider-category-name{
+    color: var(--main-text-color-deep-space-blue);
+    font-size: var(--font-size-sixteen);
 }
 </style>
