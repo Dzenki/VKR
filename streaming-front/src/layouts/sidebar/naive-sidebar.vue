@@ -76,7 +76,6 @@ const sidebarItems = [
 const activeKey = ref(null);
 const collapsed = ref(false);
 
-const route = useRoute()
 
 function renderIcon(icon) {
     return () => h(NIcon, null, { default: () => h(icon) });

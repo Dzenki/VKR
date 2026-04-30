@@ -123,6 +123,15 @@ function initRouter() {
       },
     },
     {
+      name: "studioContent",
+      path: "/studio/channel/identifier",
+      component: () => import("@/gaze-studio/user-content/content.vue"),
+      meta: {
+        name: "Панель канала",
+        layout: 'studio'
+      },
+    },
+    {
       name: "notFound",
       path: "/:pathMatch(.*)*",
       component: () => import("@/views/not-found-view.vue"),

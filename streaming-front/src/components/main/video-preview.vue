@@ -47,7 +47,7 @@ const horisontalIcon = computed(() => {
 <template>
     <div class="video-preview-wrap">
         <div class="video-preview-container">
-            <n-skeleton height="169px" width="300px" :sharp="false"/>
+            <n-skeleton class="video-preview-skeleton" :sharp="false"/>
             <div class="video-preview-online-tag">
                 <span class="video-preview-online-text">{{ language.rus }}</span>
             </div>
@@ -69,6 +69,13 @@ const horisontalIcon = computed(() => {
 </template>
 
 <style>
+
+.video-preview-skeleton{
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+}
+
 .video-preview-wrap{
     display: flex;
     flex-direction: column;
@@ -80,7 +87,7 @@ const horisontalIcon = computed(() => {
 }
 
 .video-preview-text-wrap{
-    width: 300px;
+    width: 100%;
     display: flex;
     flex-direction: row;
     gap: 8px;

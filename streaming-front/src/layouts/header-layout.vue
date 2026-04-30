@@ -63,7 +63,7 @@ const createOptions = [
                     name: 'createStream'
                 }
             },
-            "Начать стрим"
+            "Начать трансляцию"
         ),
         key: "go-live",
     },
@@ -76,7 +76,7 @@ const createOptions = [
                     name: 'uploadVOD'
                 }
             },
-            "Загрузить VOD"
+            "Загрузить запись"
         ),
         key: "upload-vod",
     },

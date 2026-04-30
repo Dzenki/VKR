@@ -16,6 +16,7 @@ import { h } from 'vue';
 import postIcon from '@/assets/img/svg/post-icon.vue';
 import goLiveIcon from '@/assets/img/svg/go-live-icon.vue';
 import uploadIcon from '@/assets/img/svg/upload-icon.vue';
+import heartIcon from '@/assets/img/svg/heart-icon.vue';
 
 const searchRequest = ref('')
 
@@ -48,6 +49,7 @@ const bigPlusIcon = computed(() => {
 })
 
 
+
 const showSignInModal = ref(false)
 const showSignUpModal = ref(false)
 
@@ -63,7 +65,7 @@ const createOptions = [
                     name: 'createStream'
                 }
             },
-            "Начать стрим"
+            "Начать трансляцию"
         ),
         key: "go-live",
     },
@@ -76,7 +78,7 @@ const createOptions = [
                     name: 'uploadVOD'
                 }
             },
-            "Загрузить VOD"
+            "Загрузить запись"
         ),
         key: "upload-vod",
     },
@@ -92,6 +94,32 @@ const createOptions = [
             "Создать пост"
         ),
         key: "create-post",
+    },
+    {
+        icon: renderIcon(heartIcon),
+        label: () => h( 
+            RouterLink,
+            {
+                to: {
+                    name: ''
+                }
+            },
+            "Создать плейлист"
+        ),
+        key: "create-playlist",
+    },
+    {
+        icon: renderIcon(heartIcon),
+        label: () => h( 
+            RouterLink,
+            {
+                to: {
+                    name: ''
+                }
+            },
+            "Создать клип"
+        ),
+        key: "create-cut",
     },
 ]
 
@@ -126,8 +154,10 @@ async function searchFunction(){
             
         </form>
         <div class="header-right-wrap">
+            <bellIcon class="header-layout-bell-icon" @click="console.log('notification')"/>
+
             <n-dropdown :options="createOptions" trigger="click">
-                <n-button strong secondary type="primary">
+                <n-button>
                     <n-icon>
                         <bigPlusIcon/>
                     </n-icon>
@@ -136,7 +166,6 @@ async function searchFunction(){
             </n-dropdown>
             
 
-            <bellIcon class="header-layout-bell-icon" @click="console.log('notification')"/>
             <profileIcon class="header-layout-profile-icon" @click="accountSidebarModal = true"/>
             <accountSidebar v-model:="accountSidebarModal" @close="accountSidebarModal = false"/>
         </div>

@@ -6,12 +6,15 @@ import videoList from '@/components/main/video-list.vue';
 
 <template>
     <div>
-        главная
         <tags-slider/>
+        <div class="home-view-line"/>
         <video-list/>
     </div>
 </template>
 
 <style>
-
+.home-view-line{
+    height: 2px;
+    background-color: var(--black-ten-opacity);
+}
 </style>
