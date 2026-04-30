@@ -1,6 +1,7 @@
 <script setup>
 import tagsSlider from '@/components/main/tags-slider.vue';
 import videoList from '@/components/main/video-list.vue';
+import cutsList from '@/components/main/cuts-list.vue';
 
 </script>
 
@@ -9,6 +10,7 @@ import videoList from '@/components/main/video-list.vue';
         <tags-slider/>
         <div class="home-view-line"/>
         <video-list/>
+        <cuts-list/>
     </div>
 </template>
 

@@ -58,7 +58,7 @@ const categoriesList = [
 .tag-slider-wrap{
     display: flex;
     flex-direction: row;
-    gap: 8px;
+    gap: 12px;
     padding: 16px;
 }
 
