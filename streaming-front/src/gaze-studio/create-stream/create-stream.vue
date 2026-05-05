@@ -1,12 +1,15 @@
 <script setup>
+import { NLayout, NLayoutContent, NLayoutHeader, NLayoutSider } from 'naive-ui';
+import streamHeader from './stream-header.vue';
+import streamContainer from './stream-container.vue';
 
 </script>
 
 <template>
     <div class="create-stream-wrap">
         <n-layout position="absolute">
-            <n-layout-header bordered :style="{height: '56px'}">
-                <header-layout/>
+            <n-layout-header bordered :style="{height: '56px'}" >
+                <stream-header/>
             </n-layout-header>
             <n-layout has-sider position="absolute" style="top: 56px;">
                 <n-layout-sider
@@ -19,9 +22,9 @@
                         :collapsed-icon-size="22" :options="sidebarItems"
                     />
                 </n-layout-sider>
-                <n-layout has-sider class="main-router-wrap" >
-                    <router-view/>
-                </n-layout>
+                <n-layout-content has-sider class="main-router-wrap" >
+                    <stream-container/>
+                </n-layout-content>
             </n-layout>
         </n-layout>
     </div>
@@ -31,7 +34,20 @@
 .create-stream-wrap{
     width: 100vw;
     height: 100vh;
-    background-color: var(--white);
     position: relative
+}
+
+.n-layout-content{
+    background-color: var(--black-neutrals);
+}
+
+.n-layout-header{
+    background-color: var(--black-neutrals);
+
+}
+
+.n-layout-sider{
+    background-color: var(--black-neutrals);
+
 }
 </style>
