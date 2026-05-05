@@ -11,8 +11,8 @@ const sadIcon = computed(() => {
 <template>
     <n-result
         status="info"
-        title="Трансляции"
-        description="Здесь будут собраны ваши прямые трансляции"
+        title="Клипы"
+        description="Здесь будут собраны ваши клипы"
     >
         <template #icon>
             <n-icon size="128">

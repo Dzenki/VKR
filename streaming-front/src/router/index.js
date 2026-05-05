@@ -89,7 +89,7 @@ function initRouter() {
     {
       name: "createStream",
       path: "/studio/livestreaming",
-      component: () => import("@/gaze-studio/create-stream/create-steram.vue"),
+      component: () => import("@/gaze-studio/create-stream/create-stream.vue"),
       meta: {
         name: "Прямая трансляция",
         layout: 'studio'

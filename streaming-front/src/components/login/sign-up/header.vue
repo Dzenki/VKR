@@ -4,7 +4,7 @@
 
 <template>
     <div class="sign-header-wrap">
-        <span>Присоединяйтесь к </span>
+        <span>Присоединяйтесь к &nbsp</span>
         <span>Gaze</span>
     </div>
 </template>

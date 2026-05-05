@@ -3,7 +3,7 @@ import { h } from 'vue';
 import { ref } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 
-import { NSpace } from 'naive-ui';
+import { NLayoutHeader, NSpace } from 'naive-ui';
 import { NLayout } from 'naive-ui';
 import { NLayoutSider } from 'naive-ui';
 import { NMenu } from 'naive-ui';
@@ -13,6 +13,7 @@ import homeIcon from '@/assets/img/svg/home-icon.vue';
 import shortsIcon from '@/assets/img/svg/shorts-icon.vue';
 import collectionIcon from '@/assets/img/svg/collection-icon.vue';
 import personIcon from '@/assets/img/svg/person-icon.vue';
+import headerLayout from '../header-layout.vue';
 
 const sidebarItems = [
     {
@@ -84,29 +85,30 @@ function renderIcon(icon) {
 </script>
 
 <template>
-    <n-space vertical class="naive-slider-wrap">
-        <n-layout has-sider>
-            <n-layout-sider
-                bordered collapse-mode="width" :collapsed-width="64"
-                :width="240" :collapsed="collapsed" show-trigger
-                @collapse="collapsed = true" @expand="collapsed = false"
-            >
-                <n-menu v-model:value="activeKey" class="naive-slider-wrap"
-                    :collapsed="collapsed" :collapsed-width="64"
-                    :collapsed-icon-size="22" :options="sidebarItems"
-                />
-            </n-layout-sider>
-            <n-layout>
-                <router-view/>
+    <div style="height: 100vh; position: relative">
+        <n-layout position="absolute">
+            <n-layout-header bordered :style="{height: '56px'}">
+                <header-layout/>
+            </n-layout-header>
+            <n-layout has-sider position="absolute" style="top: 56px;">
+                <n-layout-sider
+                    bordered collapse-mode="width" :collapsed-width="64"
+                    :width="240" :collapsed="collapsed" show-trigger
+                    @collapse="collapsed = true" @expand="collapsed = false"
+                >
+                    <n-menu v-model:value="activeKey" class="naive-slider-wrap"
+                        :collapsed="collapsed" :collapsed-width="64"
+                        :collapsed-icon-size="22" :options="sidebarItems"
+                    />
+                </n-layout-sider>
+                <n-layout has-sider class="main-router-wrap" >
+                    <router-view/>
+                </n-layout>
             </n-layout>
         </n-layout>
-    </n-space>
+    </div>
 </template>
 
 <style>
-.naive-slider-wrap{
-    height: calc(100vh - 56px);
-    overflow: auto;
-    overflow-x: hidden;
-}
+
 </style>

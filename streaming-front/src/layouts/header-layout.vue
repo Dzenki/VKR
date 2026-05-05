@@ -116,7 +116,7 @@ function rediretFunction(){
 <template>
     <div class="header-layout">
         <div class="header-left-wrap">
-            <menuIcon class="header-layout-menu-icon"/>
+            <!-- <menuIcon class="header-layout-menu-icon"/> -->
             <router-link to="/">
                 <gazeIcon class="header-layout-gaze-icon"/>
 
@@ -192,9 +192,9 @@ function rediretFunction(){
     gap: 56px;
     /* background: var(--main-bg-color-alice-blue); */
     background-color: #fff;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    /* position: sticky; */
+    /* top: 0; */
+    /* z-index: 1000; */
 }
 
 .header-left-wrap{

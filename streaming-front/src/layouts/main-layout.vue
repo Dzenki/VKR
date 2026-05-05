@@ -12,10 +12,7 @@ const route = useRoute()
         <router-view/>
     </div>
     <div class="main-layout" v-if="$route.meta.layout === 'main'">
-        <header-layout/>
-        <div class="main-layout-warp">
-            <naive-sidebar/>
-        </div>
+        <naive-sidebar/>
     </div>
 </template>
 
@@ -28,18 +25,18 @@ const route = useRoute()
 .side-bar-form{
     height: calc(100vh - 56px);
     overflow: auto;
-    overflow-x: hidden;
 }
 
 .main-layout-content{
     background: var(--main-bg-color-alice-blue);
-    display: flex;
-	flex-direction: column;
+    /* display: flex; */
+	/* flex-direction: column; */
 	width: 100%;
-	overflow: auto;
+	/* overflow: auto; */
     /* justify-content: center; */
-	position: relative;
-    height: calc(100vh - 56px);
+	/* position: relative; */
+    /* height: calc(100vh - 56px); */
     padding: 16px;
 }
+
 </style>
