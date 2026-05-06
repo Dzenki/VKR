@@ -1,5 +1,7 @@
 <script setup>
+import { NButton } from 'naive-ui';
 import screenShare from './screen-share.vue';
+
 
 </script>
 
@@ -11,7 +13,9 @@ import screenShare from './screen-share.vue';
         <screen-share/>
     </div>
     <div class="sound">
-
+        <n-button type="primary">
+            Запустить трансляцию
+        </n-button>
     </div>
 </template>
 

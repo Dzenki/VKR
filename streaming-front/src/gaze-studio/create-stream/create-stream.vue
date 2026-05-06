@@ -38,16 +38,16 @@ import streamContainer from './stream-container.vue';
 }
 
 .n-layout-content{
-    background-color: var(--black-neutrals);
+    background-color: var(--bg-dark-color-dark-grey);
 }
 
 .n-layout-header{
-    background-color: var(--black-neutrals);
+    background-color: var(--bg-dark-color-dark-grey);
 
 }
 
 .n-layout-sider{
-    background-color: var(--black-neutrals);
+    background-color: var(--bg-dark-color-dark-grey);
 
 }
 </style>

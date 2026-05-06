@@ -16,6 +16,7 @@
     --grey-blue-not-light: #B7B7CC;
     --grey-blue-light: #D0D0E2;
     --grey-not-dark: #8D8D9D;
+	--dark-grey: #18181B;
     --grey-dark: #76768C;
     --white-smoky: #EEEDF7;
     --white-grey: #F5F5F5;
@@ -26,6 +27,7 @@
 	--bg-color-emerald: var(--emerald);
 	--bg-color-red: var(--red);
 	--bg-dark-color-deep-space-blue: var(--deep-space-blue);
+	--bg-dark-color-dark-grey: var(--dark-grey);
     /* Цвета теней */
 	
     /* Цвета кнопок */
