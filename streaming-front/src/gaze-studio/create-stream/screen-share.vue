@@ -1,6 +1,6 @@
 <script setup>
-import { NButton, NSwitch, NSpace, NTag, NSelect, NSlider } from 'naive-ui';
-import { ref, watch, onUnmounted, nextTick } from 'vue';
+import { NButton, NSwitch, NSpace, NTag, NSelect, NSlider, NProgress, NAlert } from 'naive-ui';
+import { ref, watch, onUnmounted, onMounted } from 'vue';
 
 const videoPlayer = ref(null)
 const isSharing = ref(false)
@@ -8,10 +8,17 @@ const cameraEnabled = ref(false)
 const mirrorCamera = ref(false)
 const cameraPosition = ref('top-right') // top-right, top-left, bottom-right, bottom-left
 const cameraSize = ref(25) // размер в процентах (25% от ширины экрана)
+const microphoneEnabled = ref(false)
+const microphoneVolume = ref(0)
+const microphoneTestActive = ref(false)
 let screenStream = null;
 let cameraStream = null;
 let combinedStream = null;
 let animationId = null;
+let audioContext = null;
+let microphoneStream = null;
+let sourceNode = null;
+let analyserNode = null;
 
 // Позиции камеры
 const positionOptions = [
@@ -132,6 +139,13 @@ const combineStreams = () => {
         stream.addTrack(screenStream.getAudioTracks()[0]);
     }
     
+    // Добавляем аудио из микрофона, если включен
+    if (microphoneEnabled.value && microphoneStream) {
+        microphoneStream.getAudioTracks().forEach(track => {
+            stream.addTrack(track);
+        });
+    }
+    
     return stream;
 }
 
@@ -150,6 +164,111 @@ const updateCompositeStream = () => {
         }
     }
 }
+
+// Инициализация проверки микрофона
+const initMicrophoneTest = async () => {
+    if (!microphoneTestActive.value) return;
+    
+    try {
+        if (audioContext) {
+            await audioContext.close();
+        }
+        
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        analyserNode = audioContext.createAnalyser();
+        analyserNode.fftSize = 256;
+        
+        const testStream = await navigator.mediaDevices.getUserMedia({
+            audio: true
+        });
+        
+        sourceNode = audioContext.createMediaStreamSource(testStream);
+        sourceNode.connect(analyserNode);
+        sourceNode.connect(audioContext.destination);
+        
+        audioContext.resume();
+        
+        const dataArray = new Uint8Array(analyserNode.frequencyBinCount);
+        
+        const updateVolume = () => {
+            if (!microphoneTestActive.value) return;
+            
+            analyserNode.getByteFrequencyData(dataArray);
+            let sum = 0;
+            for (let i = 0; i < dataArray.length; i++) {
+                sum += dataArray[i];
+            }
+            let avg = sum / dataArray.length;
+            let volume = Math.min(100, (avg / 255) * 100);
+            microphoneVolume.value = Math.floor(volume);
+            
+            requestAnimationFrame(updateVolume);
+        };
+        
+        updateVolume();
+        
+        // Сохраняем поток для возможного использования в трансляции
+        microphoneStream = testStream;
+        
+    } catch (err) {
+        console.error("Ошибка доступа к микрофону:", err);
+        microphoneVolume.value = -1;
+    }
+};
+
+const stopMicrophoneTest = () => {
+    microphoneTestActive.value = false;
+    microphoneVolume.value = 0;
+    
+    if (sourceNode) {
+        sourceNode.disconnect();
+        sourceNode = null;
+    }
+    
+    if (analyserNode) {
+        analyserNode.disconnect();
+        analyserNode = null;
+    }
+    
+    if (audioContext) {
+        audioContext.close();
+        audioContext = null;
+    }
+    
+    // Не останавливаем microphoneStream, если он используется в трансляции
+    if (!microphoneEnabled.value && microphoneStream) {
+        microphoneStream.getTracks().forEach(track => track.stop());
+        microphoneStream = null;
+    }
+};
+
+const startMicrophoneForBroadcast = async () => {
+    try {
+        if (!microphoneStream) {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                audio: true
+            });
+            microphoneStream = stream;
+        }
+        
+        if (isSharing.value) {
+            updateCompositeStream();
+        }
+    } catch (err) {
+        console.error("Ошибка доступа к микрофону для трансляции:", err);
+    }
+};
+
+const stopMicrophoneForBroadcast = () => {
+    if (!microphoneTestActive.value && microphoneStream) {
+        microphoneStream.getTracks().forEach(track => track.stop());
+        microphoneStream = null;
+        
+        if (isSharing.value) {
+            updateCompositeStream();
+        }
+    }
+};
 
 const startCamera = async () => {
     try {
@@ -184,7 +303,7 @@ const startScreenShare = async () => {
     try {
         screenStream = await navigator.mediaDevices.getDisplayMedia({
             video: true,
-            audio: true
+            audio: false // Берем только видео с экрана, аудио будет с микрофона
         });
 
         if (cameraEnabled.value && cameraStream) {
@@ -242,6 +361,10 @@ onUnmounted(() => {
     if (combinedStream) {
         combinedStream.getTracks().forEach(track => track.stop());
     }
+    if (microphoneStream) {
+        microphoneStream.getTracks().forEach(track => track.stop());
+    }
+    stopMicrophoneTest();
 });
 
 watch(cameraEnabled, (newVal) => {
@@ -252,17 +375,36 @@ watch(cameraEnabled, (newVal) => {
     }
 });
 
+watch(microphoneEnabled, (newVal) => {
+    if (newVal) {
+        startMicrophoneForBroadcast();
+    } else {
+        stopMicrophoneForBroadcast();
+    }
+});
+
 watch([mirrorCamera, cameraPosition, cameraSize], () => {
     if (isSharing.value && cameraEnabled.value) {
         updateCompositeStream();
     }
+});
+
+watch(microphoneTestActive, (newVal) => {
+    if (newVal) {
+        initMicrophoneTest();
+    } else {
+        stopMicrophoneTest();
+    }
+});
+
+onMounted(() => {
+    // Инициализация
 });
 </script>
 
 <template>
     <div class="screen-share-wrap">
         <span class="stream-data-name">Настройка видео</span>
-
         <video ref="videoPlayer" autoplay playsinline muted></video>
         
         <div class="controls-wrapper">
@@ -317,6 +459,70 @@ watch([mirrorCamera, cameraPosition, cameraSize], () => {
                                 :step="5"
                                 style="width: 200px"
                             />
+                        </div>
+                    </div>
+
+                    <!-- Секция микрофона -->
+                    <div class="microphone-section">
+                        <div class="control-group">
+                            <NTag :type="microphoneEnabled ? 'success' : 'default'">
+                                {{ microphoneEnabled ? 'Микрофон в трансляции' : 'Микрофон выключен' }}
+                            </NTag>
+                            <NSwitch 
+                                v-model:value="microphoneEnabled"
+                            >
+                                <template #checked>
+                                    Вкл
+                                </template>
+                                <template #unchecked>
+                                    Выкл
+                                </template>
+                            </NSwitch>
+                        </div>
+
+                        <div class="control-group" style="margin-top: 8px;">
+                            <NTag :type="microphoneTestActive ? 'info' : 'default'">
+                                Тест микрофона
+                            </NTag>
+                            <NSwitch 
+                                v-model:value="microphoneTestActive"
+                            >
+                                <template #checked>
+                                    Вкл
+                                </template>
+                                <template #unchecked>
+                                    Выкл
+                                </template>
+                            </NSwitch>
+                        </div>
+
+                        <!-- Индикатор уровня громкости -->
+                        <div v-if="microphoneTestActive" class="volume-meter">
+                            <div class="volume-label">
+                                <span>Уровень громкости:</span>
+                                <span class="volume-value">{{ microphoneVolume }}%</span>
+                            </div>
+                            <div class="volume-bar-container">
+                                <div 
+                                    class="volume-bar" 
+                                    :style="{ 
+                                        width: microphoneVolume + '%',
+                                        background: microphoneVolume > 70 ? '#ff4444' : (microphoneVolume > 30 ? '#ffaa44' : '#44ff44')
+                                    }"
+                                ></div>
+                            </div>
+                            <div v-if="microphoneVolume === -1" class="microphone-error">
+                                <NAlert type="error" :show-icon="true">
+                                    Не удалось получить доступ к микрофону. Пожалуйста, проверьте разрешения.
+                                </NAlert>
+                            </div>
+                            <div v-else-if="microphoneTestActive" class="microphone-hint">
+                                <small>Говорите в микрофон, чтобы увидеть уровень громкости</small>
+                            </div>
+                        </div>
+
+                        <div v-if="microphoneEnabled && !microphoneTestActive" class="microphone-hint">
+                            <small>Микрофон будет добавлен к трансляции экрана</small>
                         </div>
                     </div>
                 </NSpace>
@@ -380,9 +586,16 @@ video {
     display: flex;
     align-items: center;
     gap: 12px;
+    margin-bottom: 8px;
 }
 
 .camera-settings {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.microphone-section {
     margin-top: 12px;
     padding-top: 12px;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
@@ -401,6 +614,52 @@ video {
     color: white;
     font-size: 13px;
     font-weight: 500;
+}
+
+.volume-meter {
+    margin-top: 12px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.volume-label {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.volume-value {
+    font-weight: bold;
+    font-family: monospace;
+}
+
+.volume-bar-container {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.volume-bar {
+    height: 100%;
+    transition: width 0.1s ease;
+    border-radius: 4px;
+}
+
+.microphone-hint {
+    color: #aaa;
+    font-size: 11px;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.microphone-error {
+    margin-top: 8px;
 }
 
 .screen-share-button-container {
