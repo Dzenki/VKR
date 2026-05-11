@@ -130,7 +130,7 @@ function rediretFunction(){
             
         </form>
         <div class="header-right-wrap">
-            <!-- <n-button class="header-right-sign-in-btn" @click="showSignInModal = true">Войти</n-button>
+            <n-button class="header-right-sign-in-btn" @click="showSignInModal = true">Войти</n-button>
             <n-modal v-model:show="showSignInModal" preset="dialog" title="Dialog">
                 <template #icon>
                     <n-icon>
@@ -162,7 +162,7 @@ function rediretFunction(){
                     <n-button class="sign-redirect-btn"
                         @click="rediretFunction">Есть учетная запись? Войти</n-button>
                 </template>
-            </n-modal> -->
+            </n-modal>
             <n-dropdown :options="createOptions" trigger="click">
                 <n-button strong secondary type="primary">
                     <n-icon>

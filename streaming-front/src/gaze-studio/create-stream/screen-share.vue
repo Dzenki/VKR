@@ -1,19 +1,198 @@
 <script setup>
-import { ref } from 'vue';
-
+import { NButton, NSwitch, NSpace, NTag, NSelect, NSlider } from 'naive-ui';
+import { ref, watch, onUnmounted, nextTick } from 'vue';
 
 const videoPlayer = ref(null)
 const isSharing = ref(false)
+const cameraEnabled = ref(false)
+const mirrorCamera = ref(false)
+const cameraPosition = ref('top-right') // top-right, top-left, bottom-right, bottom-left
+const cameraSize = ref(25) // размер в процентах (25% от ширины экрана)
 let screenStream = null;
+let cameraStream = null;
+let combinedStream = null;
+let animationId = null;
+
+// Позиции камеры
+const positionOptions = [
+    { label: 'Верхний правый угол', value: 'top-right' },
+    { label: 'Верхний левый угол', value: 'top-left' },
+    { label: 'Нижний правый угол', value: 'bottom-right' },
+    { label: 'Нижний левый угол', value: 'bottom-left' }
+];
+
+// Функция для объединения потоков экрана и камеры
+const combineStreams = () => {
+    if (!screenStream) return null;
+    
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const screenVideo = document.createElement('video');
+    const cameraVideo = document.createElement('video');
+    
+    screenVideo.srcObject = screenStream;
+    if (cameraStream) {
+        cameraVideo.srcObject = cameraStream;
+    }
+    
+    screenVideo.muted = true;
+    cameraVideo.muted = true;
+    
+    screenVideo.play();
+    if (cameraVideo) cameraVideo.play();
+    
+    const draw = () => {
+        if (!screenVideo.videoWidth || !screenVideo.videoHeight) {
+            requestAnimationFrame(draw);
+            return;
+        }
+        
+        canvas.width = screenVideo.videoWidth;
+        canvas.height = screenVideo.videoHeight;
+        
+        // Рисуем видео с экрана
+        ctx.drawImage(screenVideo, 0, 0, canvas.width, canvas.height);
+        
+        // Если камера включена и есть видео, рисуем её поверх
+        if (cameraEnabled.value && cameraStream && cameraVideo.videoWidth) {
+            const cameraWidth = canvas.width * (cameraSize.value / 100);
+            const cameraHeight = cameraVideo.videoHeight * (cameraWidth / cameraVideo.videoWidth);
+            const margin = 20;
+            
+            let x, y;
+            
+            // Определяем позицию камеры
+            switch(cameraPosition.value) {
+                case 'top-left':
+                    x = margin;
+                    y = margin;
+                    break;
+                case 'bottom-right':
+                    x = canvas.width - cameraWidth - margin;
+                    y = canvas.height - cameraHeight - margin;
+                    break;
+                case 'bottom-left':
+                    x = margin;
+                    y = canvas.height - cameraHeight - margin;
+                    break;
+                default: // top-right
+                    x = canvas.width - cameraWidth - margin;
+                    y = margin;
+            }
+            
+            // Рисуем тень
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+            ctx.shadowBlur = 10;
+            
+            // Рисуем рамку
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(x, y, cameraWidth, cameraHeight);
+            
+            // Рисуем фон рамки (для красоты)
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+            ctx.fillRect(x, y, cameraWidth, cameraHeight);
+            
+            // Сбрасываем тень для видео
+            ctx.shadowBlur = 0;
+            
+            // Применяем зеркальное отображение если нужно
+            if (mirrorCamera.value) {
+                ctx.save();
+                ctx.translate(x + cameraWidth, y);
+                ctx.scale(-1, 1);
+                ctx.drawImage(cameraVideo, 0, 0, cameraWidth, cameraHeight);
+                ctx.restore();
+            } else {
+                ctx.drawImage(cameraVideo, x, y, cameraWidth, cameraHeight);
+            }
+            
+            // Добавляем надпись "Камера"
+            ctx.font = 'bold 12px Arial';
+            ctx.fillStyle = 'white';
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+            ctx.shadowBlur = 2;
+            ctx.fillText('📷 Камера', x + 5, y + 20);
+            ctx.shadowBlur = 0;
+        }
+        
+        animationId = requestAnimationFrame(draw);
+    };
+    
+    screenVideo.addEventListener('loadedmetadata', () => {
+        if (animationId) cancelAnimationFrame(animationId);
+        draw();
+    });
+    
+    const stream = canvas.captureStream(30);
+    
+    // Добавляем аудио из экрана, если есть
+    if (screenStream.getAudioTracks().length > 0) {
+        stream.addTrack(screenStream.getAudioTracks()[0]);
+    }
+    
+    return stream;
+}
+
+// Обновление композитного потока
+const updateCompositeStream = () => {
+    if (!videoPlayer.value) return;
+    
+    if (isSharing.value && screenStream) {
+        const newStream = combineStreams();
+        if (newStream) {
+            if (combinedStream) {
+                combinedStream.getTracks().forEach(track => track.stop());
+            }
+            combinedStream = newStream;
+            videoPlayer.value.srcObject = combinedStream;
+        }
+    }
+}
+
+const startCamera = async () => {
+    try {
+        cameraStream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: false
+        });
+        
+        cameraEnabled.value = true;
+        
+        if (isSharing.value) {
+            updateCompositeStream();
+        }
+    } catch (err) {
+        console.error("Ошибка захвата камеры:", err)
+    }
+}
+
+const stopCamera = () => {
+    if (cameraStream) {
+        cameraStream.getTracks().forEach(track => track.stop());
+        cameraStream = null;
+        cameraEnabled.value = false;
+        
+        if (isSharing.value) {
+            updateCompositeStream();
+        }
+    }
+}
 
 const startScreenShare = async () => {
-    try{
+    try {
         screenStream = await navigator.mediaDevices.getDisplayMedia({
             video: true,
             audio: true
         });
 
-        videoPlayer.value.srcObject = screenStream;
+        if (cameraEnabled.value && cameraStream) {
+            updateCompositeStream();
+        } else {
+            videoPlayer.value.srcObject = screenStream;
+        }
+        
         isSharing.value = true;
 
         screenStream.getVideoTracks()[0].onended = () => {
@@ -26,32 +205,208 @@ const startScreenShare = async () => {
 
 const stopScreenShare = () => {
     if (screenStream) {
-        screenStream.getTracks().forEach(track => track.spot());
-        videoPlayer.value.srcObject = null;
+        screenStream.getTracks().forEach(track => track.stop());
+        screenStream = null;
+        
+        if (animationId) {
+            cancelAnimationFrame(animationId);
+            animationId = null;
+        }
+        
+        if (combinedStream) {
+            combinedStream.getTracks().forEach(track => track.stop());
+            combinedStream = null;
+        }
+        
+        if (cameraEnabled.value && cameraStream) {
+            videoPlayer.value.srcObject = cameraStream;
+        } else {
+            videoPlayer.value.srcObject = null;
+        }
+        
         isSharing.value = false;
     }
 }
+
+// Очистка при размонтировании
+onUnmounted(() => {
+    if (animationId) {
+        cancelAnimationFrame(animationId);
+    }
+    if (cameraStream) {
+        cameraStream.getTracks().forEach(track => track.stop());
+    }
+    if (screenStream) {
+        screenStream.getTracks().forEach(track => track.stop());
+    }
+    if (combinedStream) {
+        combinedStream.getTracks().forEach(track => track.stop());
+    }
+});
+
+watch(cameraEnabled, (newVal) => {
+    if (newVal && !cameraStream) {
+        startCamera();
+    } else if (!newVal && cameraStream) {
+        stopCamera();
+    }
+});
+
+watch([mirrorCamera, cameraPosition, cameraSize], () => {
+    if (isSharing.value && cameraEnabled.value) {
+        updateCompositeStream();
+    }
+});
 </script>
 
 <template>
-    <div class="while-color">ЗДЕСЬ БУДЕТ ТРАНСЛЯЦИЯ ЭКРАНА</div>
-    <div>
-        <button @click="startScreenShare" :disabled="isSharing" class="while-color">Начать трасляцию</button>
-        <br/>
-        <button @click="stopScreenShare" :disabled="!isSharing" class="while-color">Остановить трансляцию</button>
-        <br/>
+    <div class="screen-share-wrap">
+        <span class="stream-data-name">Настройка видео</span>
+
         <video ref="videoPlayer" autoplay playsinline muted></video>
+        
+        <div class="controls-wrapper">
+            <div class="camera-controls">
+                <NSpace vertical :size="12">
+                    <div class="control-group">
+                        <NTag :type="cameraEnabled ? 'success' : 'default'">
+                            {{ cameraEnabled ? 'Камера включена' : 'Камера выключена' }}
+                        </NTag>
+                        <NSwitch 
+                            v-model:value="cameraEnabled"
+                            :loading="cameraEnabled && !cameraStream"
+                        >
+                            <template #checked>
+                                Вкл
+                            </template>
+                            <template #unchecked>
+                                Выкл
+                            </template>
+                        </NSwitch>
+                    </div>
+
+                    <div v-if="cameraEnabled" class="camera-settings">
+                        <div class="setting-item">
+                            <span class="setting-label">Зеркальное отражение:</span>
+                            <NSwitch v-model:value="mirrorCamera">
+                                <template #checked>
+                                    Вкл
+                                </template>
+                                <template #unchecked>
+                                    Выкл
+                                </template>
+                            </NSwitch>
+                        </div>
+
+                        <div class="setting-item">
+                            <span class="setting-label">Позиция камеры:</span>
+                            <NSelect 
+                                v-model:value="cameraPosition"
+                                :options="positionOptions"
+                                size="small"
+                                style="width: 180px"
+                            />
+                        </div>
+
+                        <div class="setting-item">
+                            <span class="setting-label">Размер камеры: {{ cameraSize }}%</span>
+                            <NSlider 
+                                v-model:value="cameraSize"
+                                :min="10"
+                                :max="40"
+                                :step="5"
+                                style="width: 200px"
+                            />
+                        </div>
+                    </div>
+                </NSpace>
+            </div>
+            
+            <div class="screen-share-button-container">
+                <NButton 
+                    type="primary"
+                    @click="startScreenShare" 
+                    :disabled="isSharing"
+                >
+                    Начать трансляцию
+                </NButton>
+
+                <NButton 
+                    type="error"
+                    @click="stopScreenShare" 
+                    :disabled="!isSharing"
+                >
+                    Остановить трансляцию
+                </NButton>
+            </div>
+        </div>
     </div>
 </template>
 
-<style>
-.while-color{
-    color: white;
+<style scoped>
+.screen-share-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
-video{
+video {
     width: 100%;
-    max-width: 600px;
-    
+    background-color: rgb(13, 12, 12);
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+.controls-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.camera-controls {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 16px;
+    border-radius: 12px;
+    flex: 1;
+    min-width: 280px;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.camera-settings {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.setting-label {
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.screen-share-button-container {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: flex-start;
 }
 </style>

@@ -27,7 +27,6 @@ const themeOverrides = {
     },
     Dropdown: {
         optionTextColor: 'var(--main-text-color-deep-space-blue)',
-
     }
 }
 
